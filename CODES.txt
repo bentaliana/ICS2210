@@ -1,0 +1,11 @@
+CODES 
+
+tmux new -s extract_session
+source myenv/bin/activate
+python run_extraction.py
+
+tmux attach -t extract_session
+tmux ls
+
+
+then can you also add multiple entity sentences as well ?  so sentences with more than one protein or more than 1 go like we discussed ,since we're keeping all in one script, is it practical to keep it all in one script would it be more organized or better to split? also I noticed that you were using hard-coded random pmids, I want you to instead manually query pubmed for every sentence type we extract (like how the script is extracting for a specific type), I also want you to add a field to each sentence type we have values that are true or false for each entity type, so   and in main , we can manually set how many sentences of each type we need, and they're done in whichever order 
