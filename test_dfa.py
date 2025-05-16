@@ -93,6 +93,7 @@ class DFATest:
         original_num_states = dfa.n
         original_depth = dfa.bfs_depth()
 
+
         minimized_dfa = dfa.hopcroft_minimization()
         minimized_num_states = minimized_dfa.n
         minimized_depth = minimized_dfa.bfs_depth()
@@ -116,41 +117,64 @@ class DFATest:
     def hopcroft_edge_cases():
         print("\n--- Hopcroft Edge Cases ---")
 
-        # All-accepting DFA
         dfa = DFA()
-        dfa.n = 3
-        dfa.states = [0, 1, 2]
-        dfa.accepting = {0: True, 1: True, 2: True}
+        dfa.states = [0,1,2,3,4,5,6,7]
+        dfa.n = 8
+        dfa.accepting = {0: False, 1: False, 2: True, 3: False, 4: False, 5: False, 6: False, 7: False}
         dfa.transition = {
-            0: {'a': 1, 'b': 2},
-            1: {'a': 0, 'b': 2},
-            2: {'a': 2, 'b': 1}
+            0: {'a': 1, 'b': 5},
+            1: {'a': 6, 'b': 2},
+            2: {'a': 0, 'b': 2},
+            3: {'a': 2, 'b': 6},
+            4: {'a': 7, 'b': 5},
+            5: {'a': 2, 'b': 6},
+            6: {'a': 6, 'b': 4},
+            7: {'a': 6, 'b': 2}
         }
         dfa.start_state = 0
+        print(f"Original DFA: {dfa.n} states")
+        dfa.prune()
+        print(f"Pruned DFA: {dfa.n} states")
         minimized = dfa.hopcroft_minimization()
-        print(f"All-accepting DFA -> Original: {dfa.n} states, Minimized: {minimized.n} states")
+        print(f"Minimized DFA: {minimized.n} states")
+        print(f"Depth of original DFA: {dfa.bfs_depth()}")
 
-        # Already minimal DFA
-        dfa = DFA()
-        dfa.n = 2
-        dfa.states = [0, 1]
-        dfa.accepting = {0: False, 1: True}
-        dfa.transition = {
-            0: {'a': 1, 'b': 0},
-            1: {'a': 1, 'b': 1}
-        }
-        dfa.start_state = 0
-        minimized = dfa.hopcroft_minimization()
-        print(f"Minimal DFA -> Original: {dfa.n} states, Minimized: {minimized.n} states")
 
-        # One-State DFA
-        dfa = DFA()
-        dfa.n = 1
-        dfa.states = [0]
-        dfa.accepting = {0: True}
-        dfa.transition = {
-            0: {'a': 0, 'b': 0}
-        }
-        dfa.start_state = 0
-        minimized = dfa.hopcroft_minimization()
-        print(f"One-State DFA -> Original: {dfa.n} states, Minimized: {minimized.n} states, Depth: {dfa.bfs_depth()}")
+        # # All-accepting DFA
+        # dfa = DFA()
+        # dfa.n = 3
+        # dfa.states = [0, 1, 2]
+        # dfa.accepting = {0: True, 1: True, 2: True}
+        # dfa.transition = {
+        #     0: {'a': 1, 'b': 2},
+        #     1: {'a': 0, 'b': 2},
+        #     2: {'a': 2, 'b': 1}
+        # }
+        # dfa.start_state = 0
+        # minimized = dfa.hopcroft_minimization()
+        # print(f"All-accepting DFA -> Original: {dfa.n} states, Minimized: {minimized.n} states")
+
+        # # Already minimal DFA
+        # dfa = DFA()
+        # dfa.n = 2
+        # dfa.states = [0, 1]
+        # dfa.accepting = {0: False, 1: True}
+        # dfa.transition = {
+        #     0: {'a': 1, 'b': 0},
+        #     1: {'a': 1, 'b': 1}
+        # }
+        # dfa.start_state = 0
+        # minimized = dfa.hopcroft_minimization()
+        # print(f"Minimal DFA -> Original: {dfa.n} states, Minimized: {minimized.n} states")
+
+        # # One-State DFA
+        # dfa = DFA()
+        # dfa.n = 1
+        # dfa.states = [0]
+        # dfa.accepting = {0: True}
+        # dfa.transition = {
+        #     0: {'a': 0, 'b': 0}
+        # }
+        # dfa.start_state = 0
+        # minimized = dfa.hopcroft_minimization()
+        # print(f"One-State DFA -> Original: {dfa.n} states, Minimized: {minimized.n} states, Depth: {dfa.bfs_depth()}")
